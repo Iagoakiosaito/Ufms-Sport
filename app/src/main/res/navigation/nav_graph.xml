@@ -3,26 +3,44 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
-
+    app:startDestination="@id/teamsFragment">
     <fragment
-        android:id="@+id/FirstFragment"
-        android:name="com.example.controledejogos.FirstFragment"
-        android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
-
+        android:id="@+id/teamsFragment"
+        android:name="com.example.controledejogos.home.Teams.TeamsFragment"
+        android:label="games_fragment"
+        tools:layout="@layout/teams_fragment" >
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            android:id="@+id/action_gamesFragment_to_addTeamFragment"
+            app:destination="@id/addTeamFragment" />
+        <action
+            android:id="@+id/action_gamesFragment_to_addPlayer"
+            app:destination="@id/addPlayerFragment" />
+        <action
+            android:id="@+id/action_teamsFragment_to_playersFragment"
+            app:destination="@id/playersFragment" />
     </fragment>
     <fragment
-        android:id="@+id/SecondFragment"
-        android:name="com.example.controledejogos.SecondFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
-
+        android:id="@+id/addPlayerFragment"
+        android:name="com.example.controledejogos.add.player.AddPlayerFragment"
+        android:label="add_player_fragment"
+        tools:layout="@layout/add_player_fragment" />
+    <fragment
+        android:id="@+id/addTeamFragment"
+        android:name="com.example.controledejogos.add.team.AddTeamFragment"
+        android:label="add_team_fragment"
+        tools:layout="@layout/add_team_fragment" />
+    <fragment
+        android:id="@+id/playersFragment"
+        android:name="com.example.controledejogos.home.Players.PlayersFragment"
+        android:label="players_fragment" >
         <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
+            android:id="@+id/action_playersFragment_to_addPlayer"
+            app:destination="@id/addPlayerFragment" />
+        <action
+            android:id="@+id/action_playersFragment_to_addTeamFragment"
+            app:destination="@id/addTeamFragment" />
+        <action
+            android:id="@+id/action_playersFragment_to_teamsFragment"
+            app:destination="@id/teamsFragment" />
     </fragment>
 </navigation>
