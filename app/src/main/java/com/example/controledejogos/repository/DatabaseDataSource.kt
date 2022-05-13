@@ -20,13 +20,21 @@ class DatabaseDataSource(
         return dao.addPlayer(player)
     }
 
-    override suspend fun updateTeam(description: String) {
-        val team = Team(description = description)
+    override suspend fun updateTeam(description: String, idTeam: Int) {
+        val team = Team(description = description, idTeam = idTeam)
         dao.updateTeam(team)
     }
 
-    override suspend fun updatePlayer(idTeam: Int, name: String, cpf: String, bornAt: Int) {
-        val player = Player(idTeam = idTeam, name = name, cpf = cpf, bornAt = bornAt)
+    override suspend fun updatePlayer(
+        idTeam: Int,
+        name: String,
+        cpf: String,
+        bornAt: Int,
+        idPlayer: Int
+    ) {
+        val player = Player(
+            idTeam = idTeam, name = name, cpf = cpf, bornAt = bornAt, idPlayer = idPlayer
+        )
         dao.updatePlayer(player)
     }
 

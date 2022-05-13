@@ -1,9 +1,12 @@
 package com.example.controledejogos.data.entity
 
+import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 @Entity(tableName = "Player")
 data class Player(
     @PrimaryKey(autoGenerate = true)
@@ -19,4 +22,4 @@ data class Player(
     val name: String,
     val cpf: String,
     val bornAt: Int,
-)
+) : Parcelable

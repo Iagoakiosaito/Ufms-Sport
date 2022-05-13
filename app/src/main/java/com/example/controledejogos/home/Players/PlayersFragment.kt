@@ -79,7 +79,13 @@ class PlayersFragment : Fragment() {
 
         viewModel.allPlayersEvent.observe(viewLifecycleOwner) {
 
-            val playersListRecyclerViewAdapter = PlayersListRecyclerViewAdapter(it)
+            val playersListRecyclerViewAdapter = PlayersListRecyclerViewAdapter(it).apply {
+                onItemClick = { player ->
+                    val action = PlayersFragmentDirections
+                        .actionPlayersFragmentToAddPlayer(player)
+                    findNavController().navigateWithAnimations(action)
+                }
+            }
 
             recyclerView_players.run {
                 setHasFixedSize(true)

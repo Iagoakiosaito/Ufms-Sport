@@ -6,18 +6,19 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.controledejogos.R
 import com.example.controledejogos.data.dao.GamesDao
 import com.example.controledejogos.data.database.GamesDatabase
 import com.example.controledejogos.extensions.hideKeyboard
 import com.example.controledejogos.repository.DatabaseDataSource
 import com.example.controledejogos.repository.IGamesRepository
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.add_player_fragment.*
-import kotlinx.android.synthetic.main.add_team_fragment.*
 
 class AddPlayerFragment : Fragment() {
 
@@ -36,6 +37,8 @@ class AddPlayerFragment : Fragment() {
         }
     }
 
+    private val args: AddPlayerFragmentArgs by navArgs()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -48,21 +51,35 @@ class AddPlayerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        args.player?.let { player ->  
+            edtName.setText(player.name)
+            edtCPF.setText(player.cpf)
+            edtBornAt.setText(player.bornAt)
+            edtIdTeam.setText(player.idTeam)
+            btnSavePlayer.text = getString(R.string.player_button_update)
+        }
+        
         createObservers()
         setListeners()
     }
 
     private fun createObservers() {
-        viewModel.subscriberStateEventData.observe(viewLifecycleOwner) { teamState ->
+        viewModel.playerStateEventData.observe(viewLifecycleOwner) { teamState ->
             when(teamState) {
-                is AddPlayerViewModel.TeamState.Inserted -> {
+                is AddPlayerViewModel.PlayerState.Inserted -> {
                     clearFields()
                     hideKeyboard()
+                    findNavController().popBackStack()
+                }
+                is AddPlayerViewModel.PlayerState.Updated -> {
+                    clearFields()
+                    hideKeyboard()
+                    findNavController().popBackStack()
                 }
             }
         }
         viewModel.messageEventData.observe(viewLifecycleOwner) { stringResId ->
-            Snackbar.make(requireView(), stringResId, Snackbar.LENGTH_LONG).show()
+            Toast.makeText(requireContext(), stringResId, Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -88,8 +105,7 @@ class AddPlayerFragment : Fragment() {
             val bornAt = edtBornAt.text.toString().toInt()
             val teamId = edtIdTeam.text.toString().toInt()
 
-            viewModel.savePlayer(name = name, cpf = cpf, bornAt = bornAt, idTeam = teamId)
-            fragmentManager!!.popBackStack()
+            viewModel.addOrUpdatePlayer(name = name, cpf = cpf, bornAt = bornAt, idTeam = teamId, idPlayer = args.player?.idPlayer ?: 0)
         }
     }
 }

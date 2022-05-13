@@ -18,3 +18,10 @@ fun NavController.navigateWithAnimations(
 ) {
     this.navigate(destinationId, null, animation)
 }
+
+fun NavController.navigateWithAnimations(
+    directions: NavDirections,
+    animation: NavOptions = slideLeftOptions
+) {
+    this.navigate(directions, animation)
+}

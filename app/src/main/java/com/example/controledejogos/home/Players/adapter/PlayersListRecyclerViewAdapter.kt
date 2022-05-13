@@ -10,22 +10,25 @@ import com.example.controledejogos.R
 import com.example.controledejogos.data.entity.Player
 import com.example.controledejogos.data.entity.Team
 import com.example.controledejogos.databinding.RecyclerviewPlayersBinding
+import com.example.controledejogos.home.Players.adapter.PlayersListRecyclerViewAdapter.PlayersViewHolder
 import com.example.controledejogos.home.Teams.adapter.TeamsListRecyclerViewAdapter
 import kotlinx.android.synthetic.main.recyclerview_players.view.*
 import kotlinx.android.synthetic.main.recyclerview_teams.view.*
 
 class PlayersListRecyclerViewAdapter(
     private var players : List<Player>,
-) : RecyclerView.Adapter<PlayersListRecyclerViewAdapter.PlayersViewHolder>() {
+) : RecyclerView.Adapter<PlayersViewHolder>() {
+
+    var onItemClick: ((player: Player) -> Unit)? = null
 
     override fun getItemCount(): Int = players.size
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) : PlayersListRecyclerViewAdapter.PlayersViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) : PlayersViewHolder {
 
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.recyclerview_players, parent, false)
 
-        return PlayersListRecyclerViewAdapter.PlayersViewHolder(view)
+        return PlayersViewHolder(view)
 
     }
 
@@ -35,7 +38,7 @@ class PlayersListRecyclerViewAdapter(
         }
     }
 
-    class PlayersViewHolder(
+    inner class PlayersViewHolder(
         itemView: View
     ): RecyclerView.ViewHolder(itemView){
         private val txtPlayerName: TextView = itemView.txt_player_name
@@ -49,6 +52,10 @@ class PlayersListRecyclerViewAdapter(
             txtPlayerBornAt.text = player.bornAt.toString()
             txtPlayerCpf.text = player.cpf
             txtPlayerIdPlayer.text = player.idPlayer.toString()
+
+            itemView.setOnClickListener{
+                onItemClick?.invoke(player)
+            }
         }
     }
 

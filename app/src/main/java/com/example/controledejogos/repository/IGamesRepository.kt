@@ -10,9 +10,9 @@ interface IGamesRepository {
 
     suspend fun addPlayer(idTeam: Int, name: String, cpf: String, bornAt: Int): Long
 
-    suspend fun updateTeam(description: String)
+    suspend fun updateTeam(description: String, idTeam: Int)
 
-    suspend fun updatePlayer(idTeam: Int, name: String, cpf: String, bornAt: Int)
+    suspend fun updatePlayer(idTeam: Int, name: String, cpf: String, bornAt: Int, idPlayer: Int)
 
     suspend fun deleteTeam(idTeam: Int)
 

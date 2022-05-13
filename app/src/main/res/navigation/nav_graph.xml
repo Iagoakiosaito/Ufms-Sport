@@ -7,7 +7,7 @@
     <fragment
         android:id="@+id/teamsFragment"
         android:name="com.example.controledejogos.home.Teams.TeamsFragment"
-        android:label="games_fragment"
+        android:label="@string/teams_fragment"
         tools:layout="@layout/teams_fragment" >
         <action
             android:id="@+id/action_gamesFragment_to_addTeamFragment"
@@ -19,20 +19,11 @@
             android:id="@+id/action_teamsFragment_to_playersFragment"
             app:destination="@id/playersFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/addPlayerFragment"
-        android:name="com.example.controledejogos.add.player.AddPlayerFragment"
-        android:label="add_player_fragment"
-        tools:layout="@layout/add_player_fragment" />
-    <fragment
-        android:id="@+id/addTeamFragment"
-        android:name="com.example.controledejogos.add.team.AddTeamFragment"
-        android:label="add_team_fragment"
-        tools:layout="@layout/add_team_fragment" />
+
     <fragment
         android:id="@+id/playersFragment"
         android:name="com.example.controledejogos.home.Players.PlayersFragment"
-        android:label="players_fragment" >
+        android:label="@string/players_fragment" >
         <action
             android:id="@+id/action_playersFragment_to_addPlayer"
             app:destination="@id/addPlayerFragment" />
@@ -43,4 +34,28 @@
             android:id="@+id/action_playersFragment_to_teamsFragment"
             app:destination="@id/teamsFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/addPlayerFragment"
+        android:name="com.example.controledejogos.add.player.AddPlayerFragment"
+        android:label="@string/add_player_fragment"
+        tools:layout="@layout/add_player_fragment" >
+        <argument
+            android:name="player"
+            app:argType="com.example.controledejogos.data.entity.Player"
+            android:defaultValue="@null"
+            app:nullable="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/addTeamFragment"
+        android:name="com.example.controledejogos.add.team.AddTeamFragment"
+        android:label="@string/add_team_fragment"
+        tools:layout="@layout/add_team_fragment" >
+        <argument
+            android:name="team"
+            app:argType="com.example.controledejogos.data.entity.Team"
+            android:defaultValue="@null"
+            app:nullable="true" />
+    </fragment>
+
 </navigation>

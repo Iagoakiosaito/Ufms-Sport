@@ -6,9 +6,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.controledejogos.R
 import com.example.controledejogos.data.dao.GamesDao
 import com.example.controledejogos.data.database.GamesDatabase
@@ -35,6 +38,8 @@ class AddTeamFragment : Fragment() {
         }
     }
 
+    private val args: AddTeamFragmentArgs by navArgs()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -47,6 +52,11 @@ class AddTeamFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        args.team?.let { team ->
+            edtTeamDescription.setText(team.description)
+            btnSaveTeam.text = R.string.team_button_upadte.toString()
+        }
+
         createObservers()
         setListeners()
     }
@@ -57,11 +67,12 @@ class AddTeamFragment : Fragment() {
                 is AddTeamViewModel.TeamState.Inserted -> {
                     clearFields()
                     hideKeyboard()
+                    findNavController().popBackStack()
                 }
             }
         }
         viewModel.messageEventData.observe(viewLifecycleOwner) { stringResId ->
-            Snackbar.make(requireView(), stringResId, Snackbar.LENGTH_LONG).show()
+            Toast.makeText(requireContext(), stringResId, Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -79,7 +90,6 @@ class AddTeamFragment : Fragment() {
     private fun setListeners() {
         btnSaveTeam.setOnClickListener(){
             viewModel.saveTeam(edtTeamDescription.text.toString())
-            fragmentManager!!.popBackStack()
         }
     }
 

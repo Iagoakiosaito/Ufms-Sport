@@ -16,4 +16,13 @@
     <string name="team_inserted_successfully">Team was successfully added!</string>
     <string name="player_inserted_successfully">Player was successfully added</string>
     <string name="error_to_insert">An error occurred during insertion</string>
+    <string name="teams_fragment">Teams list</string>
+    <string name="add_player_fragment">New Player</string>
+    <string name="add_team_fragment">New Team</string>
+    <string name="players_fragment">Players List</string>
+    <string name="player_button_update">Update</string>
+    <string name="player_updated_succesfully">Player was succesfully updated</string>
+    <string name="error_to_update">An error occurred in update</string>
+    <string name="team_button_upadte">Update</string>
+    <string name="team_updated_successfully">Team was successfully updated</string>
 </resources>

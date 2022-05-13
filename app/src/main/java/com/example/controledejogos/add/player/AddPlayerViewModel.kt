@@ -14,20 +14,40 @@ class AddPlayerViewModel(
     private val repository: IGamesRepository
 ) : ViewModel() {
 
-    private val _subscriberStateEventData = MutableLiveData<AddPlayerViewModel.TeamState>()
-    val subscriberStateEventData: LiveData<AddPlayerViewModel.TeamState>
-        get() = _subscriberStateEventData
+    private val _playerStateEventData = MutableLiveData<AddPlayerViewModel.PlayerState>()
+    val playerStateEventData: LiveData<AddPlayerViewModel.PlayerState>
+        get() = _playerStateEventData
 
     private val _messageEventData = MutableLiveData<Int>()
     val messageEventData: LiveData<Int>
         get() = _messageEventData
 
-    fun savePlayer(idTeam: Int, name: String, cpf: String, bornAt: Int) = viewModelScope.launch(Dispatchers.IO) {
+    fun addOrUpdatePlayer(idTeam: Int, name: String, cpf: String, bornAt: Int, idPlayer: Int = 0){
+        if (idPlayer > 0){
+            updatePlayer(idTeam, name,  cpf, bornAt, idPlayer)
+        } else {
+          insertPlayer(idTeam, name, cpf, bornAt)
+        }
+    }
+
+    private fun updatePlayer(idTeam: Int, name: String, cpf: String, bornAt: Int, idPlayer: Int) = viewModelScope.launch {
+        try {
+            repository.updatePlayer(idTeam, name, cpf, bornAt, idPlayer)
+
+            _playerStateEventData.postValue(PlayerState.Updated)
+            _messageEventData.postValue(R.string.player_updated_succesfully)
+        } catch (e: Exception){
+            _messageEventData.postValue(R.string.error_to_update)
+            Log.e(TAG, "updatePlayer: $e", )
+        }
+    }
+
+    private fun insertPlayer(idTeam: Int, name: String, cpf: String, bornAt: Int) = viewModelScope.launch(Dispatchers.IO) {
         try {
 
             val id = repository.addPlayer(idTeam, name, cpf, bornAt)
             if (id > 0){
-                _subscriberStateEventData.postValue(AddPlayerViewModel.TeamState.Inserted)
+                _playerStateEventData.postValue(AddPlayerViewModel.PlayerState.Inserted)
                 _messageEventData.postValue(R.string.player_inserted_successfully)
             }
 
@@ -37,8 +57,9 @@ class AddPlayerViewModel(
         }
     }
 
-    sealed class TeamState{
-        object Inserted: TeamState()
+    sealed class PlayerState{
+        object Inserted: PlayerState()
+        object Updated : PlayerState()
     }
 
     companion object {
