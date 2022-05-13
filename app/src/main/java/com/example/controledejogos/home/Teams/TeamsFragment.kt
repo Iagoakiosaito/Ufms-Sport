@@ -110,6 +110,7 @@ class TeamsFragment : Fragment() {
         fabAddTeam.setOnClickListener {
             val action = R.id.action_gamesFragment_to_addTeamFragment
             navController.navigateWithAnimations(action)
+
         }
 
     }
