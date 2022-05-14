@@ -1,4 +1,4 @@
-package com.example.controledejogos.home.Teams
+package com.example.controledejogos.home.list.Teams
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,12 +12,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.controledejogos.R
-import com.example.controledejogos.add.team.AddTeamViewModel
 import com.example.controledejogos.data.dao.GamesDao
 import com.example.controledejogos.data.database.GamesDatabase
-import com.example.controledejogos.data.entity.Team
 import com.example.controledejogos.extensions.navigateWithAnimations
-import com.example.controledejogos.home.Teams.adapter.TeamsListRecyclerViewAdapter
+import com.example.controledejogos.home.list.Teams.adapter.TeamsListRecyclerViewAdapter
 import com.example.controledejogos.repository.DatabaseDataSource
 import com.example.controledejogos.repository.IGamesRepository
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -80,9 +78,16 @@ class TeamsFragment : Fragment() {
 
     private fun observeViewModelEvents() {
 
-        viewModel.allTeamsEvent.observe(viewLifecycleOwner) {
+        viewModel.allTeamsEvent.observe(viewLifecycleOwner) { allteams ->
 
-            val teamsListRecyclerViewAdapter = TeamsListRecyclerViewAdapter(it)
+
+            val teamsListRecyclerViewAdapter = TeamsListRecyclerViewAdapter(allteams).apply {
+                onItemClick = { team ->
+                    val action = TeamsFragmentDirections
+                        .actionGamesFragmentToAddTeamFragment(team)
+                    findNavController().navigateWithAnimations(action)
+                }
+            }
 
             recyclerview_teams.run {
                 setHasFixedSize(true)

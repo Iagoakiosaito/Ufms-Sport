@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.controledejogos.R
-import com.example.controledejogos.add.player.AddPlayerViewModel
 import com.example.controledejogos.repository.IGamesRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -25,13 +24,13 @@ class AddTeamViewModel(
 
     fun addOrUpdateTeam(description: String, idTeam: Int){
         if (idTeam > 0){
-
+            updateTeam(description, idTeam)
         } else {
-            saveTeam(description)
+            insertTeam(description)
         }
     }
 
-    fun updateTeam(description: String, idTeam: Int) = viewModelScope.launch(Dispatchers.IO) {
+    private fun updateTeam(description: String, idTeam: Int) = viewModelScope.launch(Dispatchers.IO) {
         try {
             repository.updateTeam(description, idTeam)
 
@@ -44,7 +43,7 @@ class AddTeamViewModel(
         }
     }
 
-    fun saveTeam(description: String) = viewModelScope.launch(Dispatchers.IO) {
+    private fun insertTeam(description: String) = viewModelScope.launch(Dispatchers.IO) {
         try {
 
             val id = repository.addTeam(description)
@@ -59,9 +58,24 @@ class AddTeamViewModel(
         }
     }
 
+    fun removeTeam(idTeam: Int) = viewModelScope.launch(Dispatchers.IO) {
+        try {
+            if (idTeam > 0){
+                repository.deleteTeam(idTeam)
+                _teamStateEventData.postValue(TeamState.Deleted)
+                _messageEventData.postValue(R.string.team_deleted_successfully)
+            }
+
+        } catch (e: Exception){
+            _messageEventData.value = R.string.error_to_delete
+            Log.e(TAG, "removeTeam: $e", )
+        }
+    }
+
     sealed class TeamState{
         object Inserted: TeamState()
         object Updated : TeamState()
+        object Deleted : TeamState()
     }
 
     companion object {

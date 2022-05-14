@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.controledejogos.R
+import com.example.controledejogos.add.team.AddTeamViewModel
 import com.example.controledejogos.repository.IGamesRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -30,7 +31,7 @@ class AddPlayerViewModel(
         }
     }
 
-    private fun updatePlayer(idTeam: Int, name: String, cpf: String, bornAt: Int, idPlayer: Int) = viewModelScope.launch {
+    private fun updatePlayer(idTeam: Int, name: String, cpf: String, bornAt: Int, idPlayer: Int) = viewModelScope.launch(Dispatchers.IO) {
         try {
             repository.updatePlayer(idTeam, name, cpf, bornAt, idPlayer)
 
@@ -57,9 +58,24 @@ class AddPlayerViewModel(
         }
     }
 
+    fun remotePlayer(idPlayer: Int) = viewModelScope.launch(Dispatchers.IO) {
+        try {
+            if (idPlayer > 0){
+                repository.deletePlayer(idPlayer)
+                _playerStateEventData.postValue(AddPlayerViewModel.PlayerState.Deleted)
+                _messageEventData.postValue(R.string.player_deleted_successfully)
+            }
+
+        } catch (e: Exception){
+            _messageEventData.value = R.string.error_to_delete
+            Log.e(TAG, "removeTeam: $e", )
+        }
+    }
+
     sealed class PlayerState{
         object Inserted: PlayerState()
         object Updated : PlayerState()
+        object Deleted : PlayerState()
     }
 
     companion object {

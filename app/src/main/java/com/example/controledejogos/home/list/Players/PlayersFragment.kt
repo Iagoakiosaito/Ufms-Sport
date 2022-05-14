@@ -1,9 +1,7 @@
-package com.example.controledejogos.home.Players
+package com.example.controledejogos.home.list.Players
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
@@ -15,7 +13,8 @@ import com.example.controledejogos.R
 import com.example.controledejogos.data.dao.GamesDao
 import com.example.controledejogos.data.database.GamesDatabase
 import com.example.controledejogos.extensions.navigateWithAnimations
-import com.example.controledejogos.home.Players.adapter.PlayersListRecyclerViewAdapter
+import com.example.controledejogos.extensions.onQueryTextChanged
+import com.example.controledejogos.home.list.Players.adapter.PlayersListRecyclerViewAdapter
 import com.example.controledejogos.repository.DatabaseDataSource
 import com.example.controledejogos.repository.IGamesRepository
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -73,16 +72,18 @@ class PlayersFragment : Fragment() {
 
         observeViewModelEvents()
 
+        setHasOptionsMenu(true)
+
     }
 
     private fun observeViewModelEvents() {
 
-        viewModel.allPlayersEvent.observe(viewLifecycleOwner) {
+        viewModel.allPlayersEvent.observe(viewLifecycleOwner) { allPlayers ->
 
-            val playersListRecyclerViewAdapter = PlayersListRecyclerViewAdapter(it).apply {
+            val playersListRecyclerViewAdapter = PlayersListRecyclerViewAdapter(allPlayers).apply {
                 onItemClick = { player ->
                     val action = PlayersFragmentDirections
-                        .actionPlayersFragmentToAddPlayer(player)
+                        .actionPlayersFragmentToAddPlayerFragment(player)
                     findNavController().navigateWithAnimations(action)
                 }
             }
@@ -107,7 +108,7 @@ class PlayersFragment : Fragment() {
             onMenuButtonClicked()
         }
         fabAddPlayer.setOnClickListener {
-            val action = R.id.action_playersFragment_to_addPlayer
+            val action = R.id.action_playersFragment_to_addPlayerFragment
             navController.navigateWithAnimations(action)
         }
         fabAddTeam.setOnClickListener {
@@ -143,6 +144,17 @@ class PlayersFragment : Fragment() {
             fabAddPlayer.startAnimation(toBottom)
             fabMenu.startAnimation(rotateClose)
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_main, menu)
+
+        val search = menu.findItem(R.id.menu_search)
+        val searchView = search.actionView as androidx.appcompat.widget.SearchView
+        searchView.onQueryTextChanged {
+            viewModel.searchQuery.value = it
+        }
+
     }
 
 

@@ -32,6 +32,6 @@ interface GamesDao {
     @Query("SELECT * FROM Player ORDER BY idPlayer ASC")
     fun readAllPlayers(): LiveData<List<Player>>
 
-    @Query("SELECT p.* FROM Player p JOIN Team t ON p.idTeam = t.idTeam WHERE t.idTeam = :idTeam")
-    fun getTeamWithPlayers(idTeam: Int): LiveData<List<Player>>
+    @Query("SELECT p.* FROM Player p JOIN Team t ON p.idTeam = t.idTeam WHERE t.description LIKE '%' || :searchQuery || '%'")
+    fun getTeamWithPlayers(searchQuery: String): LiveData<List<Player>>
 }

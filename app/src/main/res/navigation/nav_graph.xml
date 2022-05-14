@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/teamsFragment">
+
     <fragment
         android:id="@+id/teamsFragment"
-        android:name="com.example.controledejogos.home.Teams.TeamsFragment"
+        android:name="com.example.controledejogos.home.list.Teams.TeamsFragment"
         android:label="@string/teams_fragment"
         tools:layout="@layout/teams_fragment" >
         <action
@@ -22,17 +23,17 @@
 
     <fragment
         android:id="@+id/playersFragment"
-        android:name="com.example.controledejogos.home.Players.PlayersFragment"
+        android:name="com.example.controledejogos.home.list.Players.PlayersFragment"
         android:label="@string/players_fragment" >
-        <action
-            android:id="@+id/action_playersFragment_to_addPlayer"
-            app:destination="@id/addPlayerFragment" />
         <action
             android:id="@+id/action_playersFragment_to_addTeamFragment"
             app:destination="@id/addTeamFragment" />
         <action
             android:id="@+id/action_playersFragment_to_teamsFragment"
             app:destination="@id/teamsFragment" />
+        <action
+            android:id="@+id/action_playersFragment_to_addPlayerFragment"
+            app:destination="@id/addPlayerFragment" />
     </fragment>
 
     <fragment
@@ -42,8 +43,8 @@
         tools:layout="@layout/add_player_fragment" >
         <argument
             android:name="player"
-            app:argType="com.example.controledejogos.data.entity.Player"
             android:defaultValue="@null"
+            app:argType="com.example.controledejogos.data.entity.Player"
             app:nullable="true" />
     </fragment>
     <fragment
@@ -53,9 +54,10 @@
         tools:layout="@layout/add_team_fragment" >
         <argument
             android:name="team"
-            app:argType="com.example.controledejogos.data.entity.Team"
             android:defaultValue="@null"
+            app:argType="com.example.controledejogos.data.entity.Team"
             app:nullable="true" />
     </fragment>
+
 
 </navigation>

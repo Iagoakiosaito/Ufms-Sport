@@ -22,4 +22,6 @@ interface IGamesRepository {
 
     fun readAllPlayers(): LiveData<List<Player>>
 
+    fun getTeamWithPlayers(searchQuery: String): LiveData<List<Player>>
+
 }

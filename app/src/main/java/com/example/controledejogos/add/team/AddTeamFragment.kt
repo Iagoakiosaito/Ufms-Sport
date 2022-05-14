@@ -18,15 +18,14 @@ import com.example.controledejogos.data.database.GamesDatabase
 import com.example.controledejogos.extensions.hideKeyboard
 import com.example.controledejogos.repository.DatabaseDataSource
 import com.example.controledejogos.repository.IGamesRepository
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.add_team_fragment.*
 
 class AddTeamFragment : Fragment() {
 
-    private lateinit var v : View
+    private lateinit var v: View
 
     private val viewModel: AddTeamViewModel by viewModels {
-        object : ViewModelProvider.Factory{
+        object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
 
                 val dao: GamesDao = GamesDatabase.getDatabase(requireContext()).gamesDao()
@@ -54,7 +53,9 @@ class AddTeamFragment : Fragment() {
 
         args.team?.let { team ->
             edtTeamDescription.setText(team.description)
-            btnSaveTeam.text = R.string.team_button_upadte.toString()
+            btnSaveTeam.text = getString(R.string.team_button_upadte)
+
+            btn_delete_team.visibility = View.VISIBLE
         }
 
         createObservers()
@@ -62,9 +63,11 @@ class AddTeamFragment : Fragment() {
     }
 
     private fun createObservers() {
-        viewModel.subscriberStateEventData.observe(viewLifecycleOwner) { teamState ->
-            when(teamState) {
-                is AddTeamViewModel.TeamState.Inserted -> {
+        viewModel.teamStateEventData.observe(viewLifecycleOwner) { teamState ->
+            when (teamState) {
+                is AddTeamViewModel.TeamState.Inserted,
+                is AddTeamViewModel.TeamState.Updated,
+                is AddTeamViewModel.TeamState.Deleted -> {
                     clearFields()
                     hideKeyboard()
                     findNavController().popBackStack()
@@ -82,15 +85,23 @@ class AddTeamFragment : Fragment() {
 
     private fun hideKeyboard() {
         val parentActivity = requireActivity()
-        if(parentActivity is AppCompatActivity){
+        if (parentActivity is AppCompatActivity) {
             parentActivity.hideKeyboard()
         }
     }
 
     private fun setListeners() {
-        btnSaveTeam.setOnClickListener(){
-            viewModel.saveTeam(edtTeamDescription.text.toString())
+        btnSaveTeam.setOnClickListener {
+            viewModel.addOrUpdateTeam(
+                edtTeamDescription.text.toString(),
+                idTeam = args.team?.idTeam ?: 0
+            )
         }
+
+        btn_delete_team.setOnClickListener {
+            viewModel.removeTeam(args.team?.idTeam ?: 0)
+        }
+
     }
 
 }

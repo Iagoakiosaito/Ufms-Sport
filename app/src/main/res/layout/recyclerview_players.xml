@@ -20,40 +20,98 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
             android:paddingTop="8dp"
-            android:paddingBottom="8dp">
+            android:paddingBottom="8dp"
+            android:background="@color/graphite_cardview">
 
-            <TextView
-                android:id="@+id/txt_player_name"
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:text="@{player.name}" />
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/txt_player_born_at"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="@{player.bornAt}" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/raleway_semibold"
+                    android:textColor="@color/ice_white"
+                    android:text="Name:" />
 
-            <TextView
-                android:id="@+id/txt_player_cpf"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="@{player.cpf}" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/raleway_semibold"
+                    android:textColor="@color/ice_white"
+                    android:text="Born at:" />
 
-            <TextView
-                android:id="@+id/txt_player_id_player"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/raleway_semibold"
+                    android:textColor="@color/ice_white"
+                    android:text="Cpf:" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/raleway_semibold"
+                    android:textColor="@color/ice_white"
+                    android:text="Player Id:" />
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="@{player.idPlayer}" />
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txt_player_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/raleway_semibold"
+                    android:textColor="@color/ice_white"
+                    android:text="@{player.name}" />
+
+                <TextView
+                    android:id="@+id/txt_player_born_at"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/raleway_semibold"
+                    android:textColor="@color/ice_white"
+                    android:text="@{player.bornAt}" />
+
+                <TextView
+                    android:id="@+id/txt_player_cpf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/raleway_semibold"
+                    android:textColor="@color/ice_white"
+                    android:text="@{player.cpf}" />
+
+                <TextView
+                    android:id="@+id/txt_player_id_player"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/raleway_semibold"
+                    android:textColor="@color/ice_white"
+                    android:text="@{player.idPlayer}" />
+
+            </LinearLayout>
+
+
 
         </LinearLayout>
 

@@ -1,19 +1,14 @@
-package com.example.controledejogos.home.Players.adapter
+package com.example.controledejogos.home.list.Players.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.controledejogos.R
 import com.example.controledejogos.data.entity.Player
-import com.example.controledejogos.data.entity.Team
-import com.example.controledejogos.databinding.RecyclerviewPlayersBinding
-import com.example.controledejogos.home.Players.adapter.PlayersListRecyclerViewAdapter.PlayersViewHolder
-import com.example.controledejogos.home.Teams.adapter.TeamsListRecyclerViewAdapter
+import com.example.controledejogos.home.list.Players.adapter.PlayersListRecyclerViewAdapter.PlayersViewHolder
 import kotlinx.android.synthetic.main.recyclerview_players.view.*
-import kotlinx.android.synthetic.main.recyclerview_teams.view.*
 
 class PlayersListRecyclerViewAdapter(
     private var players : List<Player>,

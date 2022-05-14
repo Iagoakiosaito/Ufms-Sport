@@ -3,12 +3,12 @@
 
     <item
         android:id="@+id/teamsFragment"
-        android:icon="@drawable/ic_baseline_person_24"
+        android:icon="@drawable/ic_baseline_group_24"
         android:fontFamily="@font/raleway_semibold"
         android:title="@string/teams" />
     <item
         android:id="@+id/playersFragment"
-        android:icon="@drawable/ic_baseline_group_24"
+        android:icon="@drawable/ic_baseline_person_24"
         android:fontFamily="@font/raleway_semibold"
         android:title="@string/players" />
 

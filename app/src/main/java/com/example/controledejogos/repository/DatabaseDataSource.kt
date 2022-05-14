@@ -54,5 +54,9 @@ class DatabaseDataSource(
         return dao.readAllPlayers()
     }
 
+    override fun getTeamWithPlayers(searchQuery: String): LiveData<List<Player>> {
+        return dao.getTeamWithPlayers(searchQuery)
+    }
+
 
 }

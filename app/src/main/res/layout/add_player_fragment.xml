@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".add.player.AddPlayerFragment">
+    tools:context=".add.player.AddPlayerFragment"
+    android:background="@color/graphite">
 
 
     <EditText
@@ -14,6 +15,7 @@
         android:layout_marginTop="100dp"
         android:ems="10"
         android:inputType="textPersonName"
+        android:fontFamily="@font/raleway_semibold"
         android:text="Name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -27,6 +29,7 @@
         android:layout_marginTop="48dp"
         android:ems="10"
         android:inputType="number"
+        android:fontFamily="@font/raleway_semibold"
         android:text="CPF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,6 +44,7 @@
         android:layout_marginEnd="101dp"
         android:ems="10"
         android:inputType="number"
+        android:fontFamily="@font/raleway_semibold"
         android:text="Born at (Year)"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -55,6 +59,7 @@
         android:layout_marginEnd="101dp"
         android:ems="10"
         android:inputType="number"
+        android:fontFamily="@font/raleway_semibold"
         android:text="Team id"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -65,9 +70,26 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="68dp"
+        android:fontFamily="@font/raleway_semibold"
         android:text="Save Player"
+        android:backgroundTint="@color/ufms_font"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edtIdTeam" />
+
+    <Button
+        android:id="@+id/btn_delete_player"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@android:color/holo_red_dark"
+        android:fontFamily="@font/raleway_semibold"
+        android:text="@string/btn_player_delete"
+        android:textColor="@android:color/white"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

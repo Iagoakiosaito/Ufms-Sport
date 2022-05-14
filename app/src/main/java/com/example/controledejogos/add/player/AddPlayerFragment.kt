@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModel
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.controledejogos.R
+import com.example.controledejogos.add.team.AddTeamViewModel
 import com.example.controledejogos.data.dao.GamesDao
 import com.example.controledejogos.data.database.GamesDatabase
 import com.example.controledejogos.extensions.hideKeyboard
@@ -54,9 +55,11 @@ class AddPlayerFragment : Fragment() {
         args.player?.let { player ->  
             edtName.setText(player.name)
             edtCPF.setText(player.cpf)
-            edtBornAt.setText(player.bornAt)
-            edtIdTeam.setText(player.idTeam)
+            edtBornAt.setText(player.bornAt.toString())
+            edtIdTeam.setText(player.idTeam.toString())
             btnSavePlayer.text = getString(R.string.player_button_update)
+
+            btn_delete_player.visibility = View.VISIBLE
         }
         
         createObservers()
@@ -66,12 +69,9 @@ class AddPlayerFragment : Fragment() {
     private fun createObservers() {
         viewModel.playerStateEventData.observe(viewLifecycleOwner) { teamState ->
             when(teamState) {
-                is AddPlayerViewModel.PlayerState.Inserted -> {
-                    clearFields()
-                    hideKeyboard()
-                    findNavController().popBackStack()
-                }
-                is AddPlayerViewModel.PlayerState.Updated -> {
+                is AddPlayerViewModel.PlayerState.Inserted,
+                is AddPlayerViewModel.PlayerState.Updated,
+                is AddPlayerViewModel.PlayerState.Deleted -> {
                     clearFields()
                     hideKeyboard()
                     findNavController().popBackStack()
@@ -99,13 +99,17 @@ class AddPlayerFragment : Fragment() {
     }
 
     private fun setListeners() {
-        btnSavePlayer.setOnClickListener(){
+        btnSavePlayer.setOnClickListener{
             val name = edtName.text.toString()
             val cpf = edtCPF.text.toString()
             val bornAt = edtBornAt.text.toString().toInt()
             val teamId = edtIdTeam.text.toString().toInt()
 
             viewModel.addOrUpdatePlayer(name = name, cpf = cpf, bornAt = bornAt, idTeam = teamId, idPlayer = args.player?.idPlayer ?: 0)
+        }
+
+        btn_delete_player.setOnClickListener{
+            viewModel.remotePlayer(idPlayer = args.player?.idPlayer ?: 0)
         }
     }
 }
