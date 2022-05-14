@@ -36,6 +36,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/ice_white"
                     android:text="Description:"
+                    android:textSize="18sp"
                     android:fontFamily="@font/raleway_semibold"
                     android:textStyle="bold"/>
 
