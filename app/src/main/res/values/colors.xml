@@ -5,6 +5,11 @@
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
+    <color name="ice_white">#fffafa</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="graphite">#4F555B</color>
+    <color name="graphite_variant">#5f676e</color>
+    <color name="ufms_font">#1885b3</color>
+    <color name="graphite_cardview">#646579</color>
 </resources>
