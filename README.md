@@ -1,1 +1,2 @@
-# controle-de-jogos-prog-mob
+# UFMS Sports
+Projeto realizado como avaliação da disciplina de PROGRAMAÇÃO PARA DISPOSITIVOS MÓVEIS
