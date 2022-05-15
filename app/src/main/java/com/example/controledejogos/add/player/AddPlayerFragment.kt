@@ -13,7 +13,6 @@ import androidx.lifecycle.ViewModel
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.controledejogos.R
-import com.example.controledejogos.add.team.AddTeamViewModel
 import com.example.controledejogos.data.dao.GamesDao
 import com.example.controledejogos.data.database.GamesDatabase
 import com.example.controledejogos.extensions.hideKeyboard
@@ -109,7 +108,7 @@ class AddPlayerFragment : Fragment() {
         }
 
         btn_delete_player.setOnClickListener{
-            viewModel.remotePlayer(idPlayer = args.player?.idPlayer ?: 0)
+            viewModel.removePlayer(idPlayer = args.player?.idPlayer ?: 0)
         }
     }
 }

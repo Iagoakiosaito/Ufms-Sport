@@ -58,7 +58,7 @@ class AddPlayerViewModel(
         }
     }
 
-    fun remotePlayer(idPlayer: Int) = viewModelScope.launch(Dispatchers.IO) {
+    fun removePlayer(idPlayer: Int) = viewModelScope.launch(Dispatchers.IO) {
         try {
             if (idPlayer > 0){
                 repository.deletePlayer(idPlayer)
